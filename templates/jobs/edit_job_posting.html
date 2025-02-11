@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Job - NextHire{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 950px;">
+    <h2 class="text-center mb-0 job-posting-main-heading">Update Job Details</h2>
+
+    <form method="POST" class="bg-white p-5 rounded shadow-sm">
+        {% csrf_token %}
+
+        <!-- Job Details Section -->
+        <div class="job-section mb-5">
+            <h3 class="jobposting-sub-heading mb-3">Job Details</h3>
+            
+            <div class="form-group col-md-17 job-posting-inner-content mb-3">
+                <label for="title">Job Title</label>
+                <input type="text" class="form-control job-posting-form-control" name="title" value="{{ job_posting.title }}" required placeholder="Enter job title">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-17 job-posting-inner-content mb-2">
+                    <label for="location">Location (Leave blank if remote)</label>
+                    <input type="text" class="form-control job-posting-form-control" name="location" value="{{ job_posting.location }}" placeholder="Job location">
+                </div>
+                <div class="form-group col-md-4 d-flex align-items-center">
+                    <div class="form-check mt-0 mb-3">
+                        <input class="form-check-input" type="checkbox" name="is_remote" id="is_remote" {% if job_posting.location == "Remote" %}checked{% endif %}>
+                        <label class="form-check-label" for="is_remote">Remote</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 job-posting-inner-content mb-3">
+                    <label for="salary">Salary</label>
+                    <input type="text" class="form-control job-posting-form-control" name="salary" value="{{ job_posting.salary }}" required placeholder="Salary amount">
+                </div>
+                <div class="form-group col-md-6 job-posting-inner-content mb-3">
+                    <label for="salary_type">Salary Type</label>
+                    <select class="form-control job-posting-form-control" id="salary_type" name="salary_type">
+                        <option value="">Select</option>
+                        {% for value, label in salary_type_choices %}
+                            <option value="{{ value }}" {% if value == job_posting.salary_type %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 job-posting-inner-content mb-3">
+                    <label for="job_type">Job Type</label>
+                    <select class="form-control job-posting-form-control" id="job_type" name="job_type" required>
+                        <option value="">Select</option>
+                        {% for value, label in job_type_choices %}
+                            <option value="{{ value }}" {% if value == job_posting.job_type %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6 job-posting-inner-content mb-3">
+                    <label for="is_active">Employment Status</label>
+                    <select class="form-control job-posting-form-control" name="is_active" required>
+                        <option value="1" {% if job_posting.is_active %}selected{% endif %}>Open</option>
+                        <option value="0" {% if not job_posting.is_active %}selected{% endif %}>Closed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="category">Job Category</label>
+                <select class="form-control job-posting-form-control" name="category">
+                    <option value="">Select</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == job_posting.category.id %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <small class="form-text text-muted">Add a new category below if not listed.</small>
+            </div>
+            
+            <!-- New Category Name and Description -->
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="category_name">New Category Name</label>
+                <input type="text" class="form-control job-posting-form-control" name="category_name" placeholder="Enter category name" value="{{ job_posting.category.name }}">
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="category_description">Category Description</label>
+                <textarea class="form-control job-posting-form-control" name="category_description" rows="2" placeholder="Describe the category...">{{ job_posting.category.description }}</textarea>
+            </div>            
+        </div>
+
+        <!-- Job Description Section -->
+        <div class="job-section mb-5">
+            <h3 class="jobposting-sub-heading mb-3">Job Description</h3>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="description">Job Description</label>
+                <textarea class="form-control job-posting-form-control" name="description" rows="4" required placeholder="Describe the job...">{{ job_posting.description }}</textarea>
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="key_requirements">Key Requirements</label>
+                <textarea class="form-control job-posting-form-control" name="requirements" rows="3" placeholder="List key requirements...">{{ job_posting.requirements }}</textarea>
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="skills_required">Skills Required</label>
+                <textarea class="form-control job-posting-form-control" name="skills" rows="3" placeholder="List required skills...">{{ job_posting.skills }}</textarea>
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="experience_level">Experience Level</label>
+                <select class="form-control job-posting-form-control" id="experience_level" name="experience_level">
+                    <option value="">Select</option>
+                    {% for value, label in experience_level_choices %}
+                        <option value="{{ value }}" {% if value == job_posting.experience_level %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="benefits">Benefits</label>
+                <textarea class="form-control job-posting-form-control" name="benefits" rows="3" placeholder="Description of benefits...">{{ job_posting.benefits }}</textarea>
+            </div>
+        </div>
+
+        <!-- Application Details Section -->
+        <div class="job-section">
+            <h3 class="jobposting-sub-heading mb-3">Application Details</h3>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="application_instructions">Application Instructions</label>
+                <textarea class="form-control job-posting-form-control" name="application_instructions" rows="3" placeholder="Instructions for applicants...">{{ job_posting.application_instructions }}</textarea>
+            </div>
+            <div class="form-group job-posting-inner-content mb-3">
+                <label for="application_deadline">Application Deadline</label>
+                <input type="datetime-local" class="form-control" name="application_deadline" value="{{ job_posting.application_deadline|date:'Y-m-d\TH:i' }}" required>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn edit-job-save-btn">Apply Changes</button>
+            <a href="{% url 'employer_job_list' %}" class="btn btn-danger ml-2 edit-job-cancel-btn">Cancel Changes</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

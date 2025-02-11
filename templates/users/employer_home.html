@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Page - NextHire{% endblock %}
+
+{% block content %}
+
+<!-- Employer Hero Section -->
+<section id="employer-hero-section" class="d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <h1 class="display-4 mb-3">Hire Top Talent Effortlessly</h1>
+                <p class="lead mb-4">Find the perfect candidate for your organization with ease.</p>
+                <a href="{% url 'job_posting' %}" class="btn btn-primary btn-lg me-3">Post a Job</a>
+                <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{% static '/images/hero-employer-banner-1.png' %}" alt="Employer Hero Image" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- how it works section -->
+<section id="how-it-works" class="py-5 ">
+    <div class="container">
+        <h2 class="text-center ">How It Works</h2>
+        <div class="row text-center">
+        
+            <div class="col-md-4 mb-4">
+                <div class="step-icon mb-3">
+                    <i class="fas fa-user-plus fa-3x"></i>
+                </div>
+                <h5 class="mb-3">Post a Job</h5>
+                <p>Sign up or log in to your account and post a new job. Specify the role, requirements, and other details to attract the right candidates.</p>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="step-icon mb-3">
+                    <i class="fas fa-search fa-3x"></i>
+                </div>
+                <h5 class="mb-3">Review Applications</h5>
+                <p>Browse through applications, view candidate profiles, and shortlist the most promising applicants for the interview process.</p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="step-icon mb-3">
+                    <i class="fas fa-handshake fa-3x"></i>
+                </div>
+                <h5 class="mb-3">Hire the Best</h5>
+                <p>Select the best fit for your organization, make a competitive offer, and onboard your new team member seamlessly for success.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits of Hiring with NextHire -->
+<section class="benefits-section" id="benefits" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Benefits of Hiring with NextHire</h2>
+        <div class="row">
+            
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-3">
+                            <i class="fas fa-users fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Access to Top Talent</h5>
+                        <p class="card-text">Connect with a diverse pool of qualified candidates who are ready to take your organization to the next level of success and innovation.</p>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-3">
+                            <i class="fas fa-clock fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Save Time and Resources</h5>
+                        <p class="card-text">Streamline your hiring process with efficient tools designed to simplify applicant tracking and management.</p>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-3">
+                            <i class="fas fa-chart-line fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Increase Your Hiring Efficiency</h5>
+                        <p class="card-text">Utilize our data-driven insights and analytics to make informed hiring decisions that contribute to your company's growth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Testimonials</h2>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "NextHire has revolutionized our hiring process! We found top talent within days and couldn't be happier with the results."
+                    </p>
+                    <h5 class="testimonial-author">- John Doe, HR Manager</h5>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Thanks to NextHire, we connected with amazing candidates who fit our company culture perfectly."
+                    </p>
+                    <h5 class="testimonial-author">- Jane Smith, CEO</h5>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "The platform is user-friendly, and the support team is exceptional! Highly recommended for any employer."
+                    </p>
+                    <h5 class="testimonial-author">- Emily Johnson, Recruitment Lead</h5>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{% static '/images/testimonial1.png' %}" alt="Testimonials" class="img-fluid rounded" style="height: 450px; margin-bottom: 20px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section id="cta" class="py-5 text-center">
+    <div class="container">
+        <h2 class="mb-4">Ready to Find Your Next Hire?</h2>
+        <p class="mb-4">Join NextHire today and connect with the best talent in the industry. Start your hiring journey with us!</p>
+        <a href="{% url 'job_posting' %}" class="btn btn-light btn-lg">Get Started Now</a>
+    </div>
+</section>
+
+<!-- Contact Information / Support Section -->
+<section id="contact" class="py-5 text-center ">
+    <div class="container">
+        <h2 class="mb-4">Need Assistance? We're Here to Help!</h2>
+        <p class="mb-5">If you have any questions or need support, feel free to reach out to us!</p>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" id="contact-info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Email Us</h5>
+                        <p class="card-text">support@nexthire.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" id="contact-info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Call Us</h5>
+                        <p class="card-text">+91 78765-28765</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm" id="contact-info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Follow Us</h5>
+                        <div class="social-icons-employer">
+                            <a href="https://facebook.com" class="text-decoration-none me-3" title="Facebook">
+                                <i class="fab fa-facebook-f fa-lg"></i>
+                            </a>
+                            <a href="https://twitter.com" class="text-decoration-none me-3" title="Twitter">
+                                <i class="fab fa-twitter fa-lg"></i>
+                            </a>
+                            <a href="https://linkedin.com" class="text-decoration-none me-3" title="LinkedIn">
+                                <i class="fab fa-linkedin-in fa-lg"></i>
+                            </a>
+                            <a href="https://instagram.com" class="text-decoration-none me-3" title="Instagram">
+                                <i class="fab fa-instagram fa-lg"></i>
+                            </a>
+                            <a href="https://github.com" class="text-decoration-none" title="GitHub">
+                                <i class="fab fa-github fa-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>                               
+        </div>
+    </div>
+</section>
+
+{% endblock %}

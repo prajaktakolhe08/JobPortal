@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Seeker Profile{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="text-start">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Column: Profile Image and Basic Info -->
+            <div class="col-md-0 profile-social-site-card">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body employer-profile-userinfo-card mt-0">
+                        <div class="position-relative text-center">
+                            {% if profile.profile_image %}
+                                <img id="profile-image" src="{{ profile.profile_image.url }}" alt="Profile Image" class="rounded-circle" style="width: 150px; height: 150px;">
+                            {% else %}
+                                <i class="fas fa-user-circle default-profile-icon"></i>
+                            {% endif %}
+                            <input type="file" id="profile_image" name="profile_image" class="form-control" style="display: none;" onchange="previewImage(event)">
+                            <button type="button" class="btn btn-outline-secondary btn-sm mt-3 mb-1" onclick="document.getElementById('profile_image').click();">Change Image</button>
+                        </div>
+                        <h5 class="mt-2 mb-4 text-center">{{ user.username }}</h5>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="first_name" class="form-label" style="margin-left: 6px;">First Name</label>
+                                <input type="text" id="first_name" name="first_name" class="form-control" value="{{ user.first_name }}">
+                            </div>
+                            <div class="col">
+                                <label for="last_name" class="form-label" style="margin-left: 6px;">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" class="form-control" value="{{ user.last_name }}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="margin-left: 6px;">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links Card -->
+                <div class="card shadow-sm">
+                    <h5 class="text-center mt-3 employer-social-links-heading">Social Links</h5>
+                    <div class="card-body employer-social-sites-inputs">
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fab fa-linkedin text-primary me-2"></i>
+                            <input id="linkedin_url" name="linkedin_url" class="form-control" placeholder="LinkedIn" value="{{ profile.linkedin_url }}">
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fa-brands fa-github me-2"></i>
+                            <input id="portfolio_url" name="portfolio_url" class="form-control" placeholder="GitHub" value="{{ profile.portfolio_url }}">
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fa-brands fa-x-twitter me-2"></i>
+                            <input id="twitter_url" name="twitter_url" class="form-control" placeholder="X-twitter" value="{{ profile.twitter_url }}">
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fab fa-facebook text-primary me-2"></i>
+                            <input id="facebook_url" name="facebook_url" class="form-control" placeholder="Facebook" value="{{ profile.facebook_url }}">
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fab fa-instagram text-danger me-2"></i>
+                            <input id="instagram_url" name="instagram_url" class="form-control" placeholder="Instagram" value="{{ profile.instagram_url }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Profile Details -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body employer-company-info-section">
+                        <div class="mb-3">
+                            <h5>About</h5>
+                            <textarea id="about" name="about" class="form-control" rows="4">{{ profile.about }}</textarea>
+                        </div>
+
+                        <!-- Skills Section -->
+                        <h5>Skills</h5>
+                        <div class="mb-3">
+                            <textarea id="skills" name="skills" class="form-control" rows="3" placeholder="List your skills">{{ profile.skills }}</textarea>
+                        </div>
+
+                        <!-- Experience Section -->
+                        <h5>Experience</h5>
+                        <div class="mb-3">
+                            <textarea id="experience" name="experience" class="form-control" rows="3" placeholder="Describe your experience">{{ profile.experience }}</textarea>
+                        </div>
+
+                        <!-- Education Section -->
+                        <h5>Education</h5>
+                        <div class="mb-3">
+                            <textarea id="education" name="education" class="form-control" rows="3" placeholder="Enter your education details">{{ profile.education }}</textarea>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <h5>Additional Information</h5>
+                        <div class="mb-3">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ profile.phone_number }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" class="form-control" value="{{ profile.address }}">
+                        </div>
+                        <div class="mb-4">
+                            <label for="resume" class="form-label" style="font-weight: bold;">Resume</label>
+                            
+                            <div class="border rounded p-3 resume-upload-section" style="border: 1px solid #ddd;">
+                                {% if profile.resume %}
+                                    <!-- If a resume is already uploaded -->
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <i class="fas fa-file-alt text-primary me-2"></i>
+                                            <span id="fileLabel" class="text-muted">{{ profile.resume.name }}</span>
+                                        </div>
+                                        <div>
+                                            <a href="{{ profile.resume.url }}" class="btn btn-outline-primary btn-sm me-2" target="_blank">View Resume</a>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('resume').click();">Change Resume</button>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <!-- If no resume is uploaded -->
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-upload text-muted me-2"></i>
+                                        <span id="fileLabel" class="text-muted">No file chosen</span>
+                                        <button type="button" class="btn btn-primary btn-sm ms-auto" onclick="document.getElementById('resume').click();">Upload Resume</button>
+                                    </div>
+                                {% endif %}
+                                
+                                <input type="file" id="resume" name="resume" class="form-control" style="display: none;" accept=".pdf, .doc, .docx" onchange="updateFileLabel()">
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="text-end mt-1">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-image').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    function updateFileLabel() {
+        const resumeInput = document.getElementById("resume");
+        const fileLabel = document.getElementById("fileLabel");
+        
+        if (resumeInput.files.length > 0) {
+            fileLabel.innerHTML = resumeInput.files[0].name;
+        }
+    }
+</script>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Register-NextHire{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 1200px;">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-sm p-5 register-card">
+                <h2 class="register-heading text-center">Create Your NextHire Account</h2>
+                <p class="text-muted text-center register-subtext">Join us and find the right opportunity for you</p> <!-- Subtitle -->
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {% for field in user_form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field|add_class:"form-control register-conrols" }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors|striptags }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary w-100 register-button">Register</button>
+                </form>
+                <p class="text-center mt-4 register-link">Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

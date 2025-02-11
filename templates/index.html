@@ -1,0 +1,629 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Page - NextHire{% endblock %}
+
+{% block content %}
+
+<!-- Hero-section -->
+<section id="image-hero-section">
+    <div id="carouselExampleIndicators" class="carousel slide hero-section-items" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active carousel-hero-section-items slide-1">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center text-dark" id="hero-caption">
+                    <h1 class="display-4">Welcome to Our Job Portal</h1>
+                    <p>Your dream job is just a search away.</p>
+                    <div class="search-bar-hero mt-3">
+                        <form class="d-flex w-100">
+                            <input class="form-control form-control-lg me-1" type="search" placeholder="Search for jobs, keywords, or company..." aria-label="Search">
+                            <button class="btn btn-primary btn-lg search-btn" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item carousel-hero-section-items slide-2">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center text-dark" id="hero-caption">
+                    <h1 class="display-4">Explore Endless Opportunities</h1>
+                    <p>Find the perfect job in every industry.</p>
+                    <a href="#" class="btn btn-outline-light btn-lg mt-3" id="hero-browse-button">Browse Categories</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item carousel-hero-section-items slide-3">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center text-dark"id="hero-caption">
+                    <h1 class="display-4">Build Your Career with Us</h1>
+                    <p>Apply for top positions at leading companies.</p>
+                    <div class="search-bar-hero mt-3">
+                        <form class="d-flex w-100">
+                            <input class="form-control form-control-lg me-1" type="search" placeholder="Search for jobs, keywords, or company..." aria-label="Search">
+                            <button class="btn btn-primary btn-lg search-btn" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" id="contols-of-hero-prev"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true" id="contols-of-hero-next"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<!-- Featured Job Categories Section -->
+<section class="featured-categories">
+    <div class="container container-class">
+        <h2 class="text-center">Explore Popular Categories</h2>
+        
+        <!-- Carousel Wrapper -->
+        <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                <!-- Carousel Item 1 -->
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=1 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/IT&Software1.jpg' %}" class="img-fluid category-image" alt="IT & Software" style="height: 200px; width: 100%;">
+                                    <h4>IT & Software</h4>
+                                    <p> Find jobs in development, system administration, data analysis, and more.</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=3 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/sales&market1.jpg' %}" class="img-fluid category-image" alt="Sales & Marketing" style="height: 200px; width: 100%;">
+                                    <h4>Sales & Marketing</h4>
+                                    <p>Explore roles in sales strategy, digital marketing, market research, and more.</p>
+                                </a>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=4 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/finance&accounting1.jpg' %}" class="img-fluid category-image" alt="Finance & Accounting" style="height: 200px; width: 100%;">
+                                    <h4>Finance & Accounting</h4>
+                                    <p>Jobs in banking, accounting, financial analysis, financial services, and more.</p>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Item 2 -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=6 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/engineering1.jpg' %}" class="img-fluid category-image" alt="Engineering" style="height: 200px; width: 100%;">
+                                    <h4>Engineering</h4>
+                                    <p>Search for positions in mechanical, civil, electrical, software engineering, and more.</p>
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=1 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/healthcare1.jpg' %}" class="img-fluid category-image" alt="Healthcare" style="height: 200px; width: 100%;">
+                                    <h4>Healthcare</h4>
+                                    <p>Explore careers in nursing, medical research, patient care, healthcare administration, and more.</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="category-card text-center">
+                                <a href="{% url 'category_jobs' category_id=9 %}" class="text-decoration-none">
+                                    <img src="{% static '/images/HR1.jpg' %}" class="img-fluid category-image" alt="HR" style="height: 200px; width: 100%;">
+                                    <h4>Human Resources (HR)</h4>
+                                    <p>Find jobs in talent management, recruitment, training, employee relations, and more.</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+ <!-- Top Companies Hiring Section -->
+ <section class="top-companies">
+    <div class="container">
+        <!-- Title and Subtitle -->
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h2 class="top-companies-heading">Industry Veterans Trust Us</h2>
+                <p class="top-companies-p">
+                    Trusted by top companies worldwide. Click on the logos to explore job opportunities.
+                </p>
+            </div>
+        </div>
+        <!-- Companies Slider -->
+        <div class="row position-relative">
+            <div class="col-12">
+                <div id="companiesCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <!-- Company Logos -->
+                                <a href="https://www.samsung.com" target="_blank"><img src="{% static '/images/samsung-logo.webp' %}" class="top-company-logo" alt="Company 18"></a>
+                                <a href="https://www.coca-cola.com" target="_blank"><img src="{% static '/images/cocacola-logo.webp' %}" class="top-company-logo" alt="Company 2"></a>
+                                <a href="https://www.microsoft.com" target="_blank"><img src="{% static '/images/microsoft-logo.webp' %}" class="top-company-logo" alt="Company 3"></a>
+                                <a href="https://www.ibm.com" target="_blank"><img src="{% static '/images/ibm-logo.webp' %}" class="top-company-logo" alt="Company 4"></a>
+                                <a href="https://www.hyundai.com" target="_blank"><img src="{% static '/images/hyundai-logo.webp' %}" class="top-company-logo" alt="Company 17"></a>
+                                <a href="https://www.wipro.com" target="_blank"><img src="{% static '/images/wipro-logo.webp' %}" class="top-company-logo" alt="Company 6"></a>
+        
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <a href="https://www.toyota.com" target="_blank"><img src="{% static '/images/toyota-logo.webp' %}" class="top-company-logo" alt="Company 7"></a>
+                                <a href="https://www.nike.com" target="_blank"><img src="{% static '/images/nike-logo.webp' %}" class="top-company-logo" alt="Company 8"></a>
+                                <a href="https://www.google.com" target="_blank"><img src="{% static '/images/google-logo.webp' %}" class="top-company-logo" alt="Company 9"></a>
+                                <a href="https://www.pepsi.com" target="_blank"><img src="{% static '/images/pepsi-logo.webp' %}" class="top-company-logo" alt="Company 10"></a>
+                                <a href="https://www.flipkart.com" target="_blank"><img src="{% static '/images/flipcart-logo.webp' %}" class="top-company-logo" alt="Company 11"></a>
+                                <a href="https://www.mini.com" target="_blank"><img src="{% static '/images/minis-logo.png' %}" class="top-company-logo" alt="Company 12"></a>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <a href="https://www.mcdonalds.com" target="_blank"><img src="{% static '/images/mc-donalds-logo.webp' %}" class="top-company-logo" alt="Company 13"></a>
+                                <a href="https://www.chanel.com" target="_blank"><img src="{% static '/images/chanel-logo.webp' %}" class="top-company-logo" alt="Company 14"></a>
+                                <a href="https://www.apple.com" target="_blank"><img src="{% static '/images/apple-logo.webp' %}" class="top-company-logo" alt="Company 15"></a>
+                                <a href="https://www.walmart.com" target="_blank"><img src="{% static '/images/walmart-logo.webp' %}" class="top-company-logo" alt="Company 16"></a>
+                                <a href="https://www.facebook.com" target="_blank"><img src="{% static '/images/facebook-logo.webp' %}" class="top-company-logo" alt="Company 5"></a>
+                                <a href="https://www.amazon.com" target="_blank"><img src="{% static '/images/amazon-logo.webp' %}" class="top-company-logo" alt="Company 1"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel Controls - Moved to Top Corners -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#companiesCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#companiesCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Opportunities Section -->
+<section class="featured-opportunities my-5">
+    <div class="container" id="featured-opp-container">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2 class="featured-job-heading">Featured Opportunities</h2>
+                <p class="featured-job-p">Check out the curated opportunities handpicked for you from top organizations.</p>
+            </div>
+            <!-- Add the controls here inside the row, aligned to the right -->
+            <div class="col-md-4 text-end top-controls-feature">
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev top-controls" type="button" data-bs-target="#featuredJobsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next top-controls" type="button" data-bs-target="#featuredJobsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Featured Jobs Slider -->
+        <div class="row position-relative">
+            <div class="col-12">
+                <div id="featuredJobsCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- First Slide (Active) -->
+                        <div class="carousel-item active carousel-item-featured-opp">
+                            <div class="row">
+                                <!-- Job Card 1 -->
+                                <div class="col-md-4 border-radius">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/software-engineer-job-1.jpg' %}" class="card-img-top" alt="Job 1">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Software Engineer</h5>
+                                            <p class="card-text">Join our tech team to design, build and maintain software applications.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 2 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/data-science-job.jpg' %}" class="card-img-top" alt="Job 2">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Data Scientist</h5>
+                                            <p class="card-text">Analyze and interpret complex datasets to help organizations make informed decisions.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 3 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/digital-market-job-1.jpg' %}" class="card-img-top" alt="Job 3">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Digital Marketing Specialist</h5>
+                                            <p class="card-text">Enhance our online presence through targeted strategies.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- Second Slide -->
+                        <div class="carousel-item">
+                            <div class="row">
+                                <!-- Job Card 4 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/accountant-job-1.jpg' %}" class="card-img-top" alt="Job 4">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Accountant</h5>
+                                            <p class="card-text">Manage financial records and ensure regulatory compliance.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 5 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/finance-analyst1.jpg' %}" class="card-img-top" alt="Job 5">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Financial Analyst</h5>
+                                            <p class="card-text">Provide insights to guide our investment and budgeting decisions.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 6 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/engineering-job-1.jpg' %}" class="card-img-top" alt="Job 6">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Mechanical Engineer</h5>
+                                            <p class="card-text">Design and develop mechanical systems and devices for various industries.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- Third Slide -->
+                        <div class="carousel-item">
+                            <div class="row">
+                                <!-- Job Card 7 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/civil-engineering-job.png' %}" class="card-img-top" alt="Job 7">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Civil Engineer</h5>
+                                            <p class="card-text">Lead the construction and development of large-scale projects.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 8 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/HR-job-1.jpg' %}" class="card-img-top" alt="Job 8">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">HR Manager</h5>
+                                            <p class="card-text">Lead employee relations and foster a positive workplace culture.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Job Card 9 -->
+                                <div class="col-md-4">
+                                    <div class="card featured-job mt-3" style="transition: transform 0.3s ease;">
+                                        <div class="image-container">
+                                            <img src="{% static '/images/medical-research-job1.jpg' %}" class="card-img-top" alt="Job 9">
+                                            <div class="overlay-icons">
+                                                <a href="#"><span class="save-icon"><i class="fas fa-bookmark"></i></span> </a>
+                                                <a href="#"><span class="fav-icon"><i class="fas fa-heart"></i></span></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <img src="{% static '/images/ibm-logo.webp' %}" alt="Company Logo" class="company-logo"> 
+                                                <span class="company-name">Tech Corp</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body view-btn-job">
+                                            <h5 class="card-title">Medical Researcher</h5>
+                                            <p class="card-text">Conduct experiments and research to advance medical knowledge and treatments.</p>
+                                            <div class="text-start">
+                                                <a href="#" class="btn btn-primary">View Job</a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</section>
+
+<!--user jobs browsing shortcut-->
+<section class="browse-jobs py-4">
+    <div class="container browsing-container-jobs">
+        <!-- Section Heading -->
+        <div class="mb-4">
+            <h2 class="section-heading text-left">Browse Job / Internship</h2>
+            <p class="section-subtitle text-left">That’s Right For You!</p>
+            <p class="section-description text-left">Find a role that fits your career aspirations.</p>
+        </div>
+
+        <div class="row align-items-start">
+            <!-- Buttons for Job Types -->
+            <div class="col-md-7 mb-4 mb-md-0">
+                <div class="job-type-buttons d-flex flex-wrap gap-3">
+                    <a href="{% url 'job_seeker_job_list' %}"><button class="btn job-type-btn job-btn-1"><i class="fas fa-search"></i> Find Job</button></a>
+                    <a href="{% url 'job_seeker_full_time' %}"><button class="btn job-type-btn job-btn-2"><i class="fas fa-briefcase"></i> Full Time</button></a>
+                    <a href="{% url 'job_seeker_part_time' %}"><button class="btn job-type-btn job-btn-3"><i class="fas fa-clock"></i> Part Time</button></a>
+                    <a href="{% url 'job_seeker_temporary_job' %}"><button class="btn job-type-btn job-btn-4"><i class="fas fa-sync-alt"></i> Temporary</button></a>
+                    <a href="{% url 'job_seeker_remote_job' %}"><button class="btn job-type-btn job-btn-5"><i class="fas fa-laptop-house"></i> Remote</button></a>
+                    <a href="{% url 'job_seeker_contract_job' %}"><button class="btn job-type-btn job-btn-6"><i class="fas fa-file-contract"></i> Contract</button></a>
+                    <a href="{% url 'job_seeker_internship_job' %}"><button class="btn job-type-btn job-btn-7"><i class="fas fa-graduation-cap"></i> Internship</button></a>
+                </div>
+            </div>
+
+            <!-- Job and Internship Cards -->
+            <div class="col-md-5">
+                <div class="row">
+                    <!-- Job Card -->
+                    <div class="col-6">
+                        <div class="card" id="job-internship-card">
+                            <h5 class="card-title">Jobs</h5>
+                            <button id="button-job-category" class="btn">Web Development <p>Software Development</p></button>
+                            <button id="button-job-category" class="btn">Marketing <p>Advertising</p></button>
+                            <button id="button-job-category" class="btn">Graphic Design <p>Design & Arts</p></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Internship Card -->
+                    <div class="col-6">
+                        <div class="card"id="job-internship-card">
+                            <h5 class="card-title">Internships</h5>
+                            <button id="button-job-category" class="btn">Digital Marketing <p>Marketing</p></button>
+                            <button id="button-job-category" class="btn">Content Writing <p>Communications</p></button>
+                            <button id="button-job-category" class="btn">Data Analysis <p>Data Science</p></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it works-->
+<section class="how-it-works">
+    <div class="container">
+        <h2 class="text-center section-title mb-4">How It Works</h2>
+        <p class="lead text-center" id="how-it-works-p">Follow these steps to land your dream job quickly and easily</p>
+        <p class="lead text-center"id="how-it-works-p">build your profile, connect with top companies, and stay updated on job openings.</p>
+        
+        <div class="row text-center">
+            <!-- Step 1: Sign Up -->
+            <div class="col-md-3 mt-5">
+                <div class="how-it-works-step p-4">
+                    <div class="icon mb-3">
+                        <i class="fas fa-user-plus fa-3x"></i> <!-- Sign Up Icon -->
+                    </div>
+                    <h5>Sign Up</h5>
+                    <p>Create a account to get started and unlock exciting opportunities.</p>
+                </div>
+            </div>
+            
+            <!-- Step 2: Search Jobs -->
+            <div class="col-md-3 mt-5">
+                <div class="how-it-works-step p-4">
+                    <div class="icon mb-3">
+                        <i class="fas fa-search fa-3x"></i> <!-- Search Icon -->
+                    </div>
+                    <h5>Search Jobs</h5>
+                    <p>Browse listings or use filters to find the perfect job.</p>
+                </div>
+            </div>
+            
+            <!-- Step 3: Apply -->
+            <div class="col-md-3 mt-5">
+                <div class="how-it-works-step p-4">
+                    <div class="icon mb-3">
+                        <i class="fas fa-paper-plane fa-3x"></i> <!-- Apply Icon -->
+                    </div>
+                    <h5>Apply</h5>
+                    <p>Submit your application with just one click.</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Get Hired -->
+            <div class="col-md-3 mt-5">
+                <div class="how-it-works-step p-4">
+                    <div class="icon mb-3">
+                        <i class="fas fa-briefcase fa-3x"></i> <!-- Get Hired Icon -->
+                    </div>
+                    <h5>Get Hired</h5>
+                    <p>Receive job offers and start your new career.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section id="why-choose-us" class="py-5 text-center">
+    <div class="container why-choose-container">
+        <h2 class="why-section-title mb-4">Why Choose Us?</h2>
+        <p class="lead mb-5">We help you find the best opportunities tailored to your skills and career goals.</p>
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-white" id="why-choose-us-card">
+                    <div class="card-body">
+                        <i class="fas fa-briefcase fa-3x mb-3"></i>
+                        <h4 class="card-title">Wide Range of Jobs</h4>
+                        <p class="card-text">We offer a wide selection of job postings across various industries and sectors.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-white" id="why-choose-us-card">
+                    <div class="card-body">
+                        <i class="fas fa-chart-line fa-3x mb-3"></i>
+                        <h4 class="card-title">Career Growth</h4>
+                        <p class="card-text">Find opportunities that match your skills and provide career advancement.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-white" id="why-choose-us-card">
+                    <div class="card-body">
+                        <i class="fas fa-user-tie fa-3x mb-3"></i>
+                        <h4 class="card-title">Expert Guidance</h4>
+                        <p class="card-text">Get guidance from top industry professionals and find the best match for your profile.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

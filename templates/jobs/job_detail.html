@@ -1,0 +1,187 @@
+<div id="job-details-page">
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 job-details-main-section">
+                <!-- Job Header -->
+                <div class="job-details-section1">
+                    <div class="d-flex flex-column align-items-start pb-3 mb-5">
+                        <img src="{{ job_posting.company_logo.url }}" alt="Company Logo" class="img-fluid img-thumbnail mb-4" style="width: 105px; height: 105px; object-fit: cover;">
+                        <h1 class="job-title mb-4">{{ job_posting.title }}</h1>
+                        <p class="company-name "><i class="fa-regular fa-building me-2"></i>{{ employer.company_name }}</p>
+                        <p class="job-location "><i class="fas fa-map-marker-alt me-2"></i>{{ job_posting.location }}</p>
+                        <p class="salary "><i class="fa-solid fa-wallet me-2"></i>INR {{ job_posting.salary }} ({{job_posting.salary_type}})</p>
+                        <p class="updated-on"><i class="fa-regular fa-calendar me-2"></i><strong>Updated on:</strong> {{ job_posting.updated_at | date:'F j, Y' }}</p>
+                        <p class="website"><i class="fas fa-globe me-1"></i>
+                            <a href="{{ employer.website }}" target="_blank">Official Website</a>
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Job Details Section -->
+                <div class="mt-5 job-details-section2 shadow-sm">
+                    <h5 class=" border-bottom mb-4">Details</h5>
+                    <h6 >About Us</h6>
+                    <p>{{ employer.about }}</p>
+
+                    <h6 class="fw-semibold mt-4">Requirements</h6>
+                    <ul class="ps-3">
+                        {% for requirement in job_posting.requirements_list %}
+                            <li>{{ requirement }}</li>
+                        {% empty %}
+                            <p>No specific requirements listed.</p>
+                        {% endfor %}
+                    </ul>
+
+                    <h6 class="fw-semibold mt-4">Benefits</h6>
+                    <ul class="ps-3">
+                        {% for benefit in job_posting.benefits_list %}
+                            <li>{{ benefit }}</li>
+                        {% empty %}
+                            <p>No specific benefits listed.</p>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Additional Sections -->
+                <div class="mt-5 job-details-section2 shadow-sm">
+                    <h5 class=" border-bottom mb-4">Job Details</h5>
+                    <p><strong>Job Description:</strong> {{ job_posting.description }}</p>
+                    <p><strong>Category:</strong> {{ job_posting.category }}</p>
+                    <p><strong>Type:</strong> {{ job_posting.job_type }}</p>
+                    <p><strong>Experience Level:</strong> {{ job_posting.experience_level }}</p>
+                </div>
+                <div class="mt-5 job-details-section2 shadow-sm">
+                    <h5 class="border-bottom pb-2 mb-4">Application Details</h5>
+                    <p><strong>Instructions:</strong> {{ job_posting.application_instructions }}</p>
+                    <p><strong>Deadline:</strong> {{ job_posting.application_deadline | date:'F j, Y' }}</p>
+                </div>
+
+                <!-- Cards Section -->
+                <div class="mt-5 job-details-section2 shadow-sm">
+                    <h5 class="border-bottom mb-4">Additional Information</h5>
+                    <!-- Salary -->
+                    <div class="card p-2 mb-4 border shadow add-info-cards">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-semibold mb-1">Salary</p>
+                                <p class=" mb-0">INR {{ job_posting.salary }} ({{ job_posting.salary_type }})</p>
+                            </div>
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                    </div>
+
+                    <!-- Job Location -->
+                    <div class="card p-2 mb-4 border shadow add-info-cards">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-semibold mb-1">Job Location</p>
+                                <p class="mb-0">{{ job_posting.location }}</p>
+                            </div>
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </div>
+
+                    <!-- Experience Level -->
+                    <div class="card p-2 mb-4 border add-info-cards shadow">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-semibold mb-1">Experience Level</p>
+                                <p class=" mb-0">{{ job_posting.experience_level }}</p>
+                            </div>
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                    </div>
+
+                    <!-- Job Type -->
+                    <div class="card p-2 border add-info-cards shadow mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-semibold mb-1">Job Type</p>
+                                <p class="mb-0">{{ job_posting.job_type }}</p>
+                            </div>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="col-md-4">
+                <div class="card sticky-top border-0 shadow job-details-basic-section">
+                    <!-- User Details with Eligible Button -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        
+                        <div>
+                            {% if user.is_authenticated %}
+                            <p class="fw-semibold mb-1">{{user.first_name }} {{ user.last_name }}</p>
+                            <p class="mb-0">{{ user.email }}</p>
+                            {%else%}
+                            <i class="fas fa-user-circle default-profile-icon text-danger" style="font-size: 4rem; margin-left:15px;"></i>
+                            {%endif%}
+                        </div>
+                        <button class="btn btn-success btn-sm d-flex align-items-center">
+                            <i class="fas fa-check me-2"></i> Eligible
+                        </button>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="d-flex align-items-center mb-3 px-3">
+                        <a href=""><i class="far fa-heart me-3 text-danger" style="font-size: 21px;"></i></a>
+                        <a href="{% url 'save_job' job_posting.id %}"><i class="fas fa-bookmark" style="color: #04225b; font-size: 21px;"></i></a>
+                    </div>
+
+                    <div class="px-3">
+                        {% if is_job_seeker %}
+                            {% if has_applied %}
+                            <a class="btn btn-success w-100 mb-2 mt-1 p-2">Already Applied</a>
+                            {% else %}
+                                <a href="{% url 'apply_job' job_posting.id %}" class="btn btn-success w-100 mb-2 job-details-apply-now-btn mt-1">Apply Now</a>
+                            {% endif %}
+                        {% elif is_employer %}
+                            {% if is_owner %}
+                                <a href="{% url 'edit_job' job_posting.id %}" class="btn btn-primary w-100 mb-2 job-details-edit-btn mt-1">Edit Job</a>
+                                <a href="#" class="btn btn-danger w-100 mt-2 job-details-delete-btn mb-2">Delete Job</a>
+                            {% else %}
+                                <p class="text-muted">You cannot manage this job posting.</p>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary w-100">Log In to Apply</a>
+                        {% endif %}
+                    </div>
+                    <hr class="my-4 mx-3">
+
+                    <!-- Skills Section -->
+                    <div class="px-3">
+                        <h5 class="fw-semibold">Skills</h5>
+                        <ul class="d-flex flex-wrap list-unstyled">
+                            {% for skill in job_posting.skills_list %}
+                                <li class="badge bg-light me-2 mb-3">{{ skill }}</li>
+                            {% empty %}
+                                <p>No specific skills listed.</p>
+                            {% endfor %}
+                        </ul>
+                        <hr>
+                    </div>
+
+                    
+                    <!-- About Employer Section -->
+                    <div class="px-3">
+                        <h5 class="fw-semibold">About Employer</h5>
+                        <p class="mb-2"><i class="fa-regular fa-building me-2"></i>{{ employer.company_name }}</p>
+                        <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>{{ employer.location }}</p>
+                        <p class="mb-2"><i class="fa-regular fa-envelope me-2"></i>{{ employer.user.email }}</p>
+                        <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>+91 {{ employer.phone_number }}</p>
+                        <p class="mb-2"><i class="fa-regular fa-calendar me-2"></i> Founded on {{ employer.founded_date }}</p>
+                        <p class="mb-2"><i class="fas fa-globe me-1"></i><a href="{{ employer.website }}" target="_blank" class="text-decoration-none" style="color: #383838;"> Visit Official website <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+                        <p class="mb-2"><strong>Address: </strong> {{ employer.address }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</div>

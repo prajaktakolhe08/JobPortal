@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5 applied-jobs-section">
+    <div class="d-flex justify-content-center align-items-center py-2 rounded mb-4 shadow-sm" style="background: linear-gradient(to right, #081b35, #1C4980); color: white;">
+        <i class="fas fa-clipboard-list me-3" style="font-size: 1.75rem; color: #f9f9f9;"></i>
+        <h3 class="fw-semibold mb-0" style="font-family: 'Poppins', sans-serif; font-size: 1.5rem;">Applied Positions</h3>
+    </div>
+    {% if applied_jobs_list %}
+        <div class="row">
+            {% for application in applied_jobs_list %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border h-100">
+                        <div class="card-body">
+                            <!-- Job Header -->
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="{{ application.job.company_logo.url }}" alt="Logo" class="img-fluid img-thumbnail" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <a href="{% url 'job_detail' application.job.id %}" class="text-dark text-decoration-none" style="font-size: 1.12rem;">{{ application.job.title }}</a>
+                                    </h5>
+                                    <small><i class="fas fa-map-marker-alt text-info"></i> {{ application.job.location }}</small>
+                                </div>
+                            </div>
+
+                            <!-- Job Details -->
+                            <p class="mb-2 text-muted"><i class="fa-regular fa-building me-2"></i>{{ application.job.employer.company_name }}</p>
+                            <p class="mb-2"><strong>Application Date:</strong> {{ application.applied_date | date:'F j, Y' }}</p>
+                            <p class="mb-2"><strong>Status:</strong> 
+                                {% if application.status == 'Applied' %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% elif application.status == 'accepted' %}
+                                    <span class="badge bg-success">Accepted</span>
+                                {% elif application.status == 'rejected' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% elif application.status == 'under_review' %}
+                                    <span class="badge bg-info text-dark">Rejected</span>
+                                {% else %}
+                                    <span class="badge bg-secondary text-dark">Unknown</span>
+                                {% endif %}
+                            </p>
+                            <p class="text-muted small">{{ application.job.description|truncatewords:20 }}</p>
+                            
+                            <!-- Actions -->
+                            <div class="d-flex align-items-center mt-3 mb-2">
+                                <a href="{% url 'job_detail' application.job.id %}" class="btn btn-primary btn-sm me-3" id="applied-job-view-btn">View Job</a>
+                                <a href="#" class="btn btn-danger btn-sm " data-bs-toggle="modal" id="applied-job-del-btn"  data-bs-target="#withdrawModal">Withdraw</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Withdraw Modal -->
+                <div class="modal fade" id="withdrawModal-{{ application.id }}" tabindex="-1" aria-labelledby="withdrawModalLabel-{{ application.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="withdrawModalLabel-{{ application.id }}">Confirm Withdrawal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to withdraw your application for "{{ application.job.title }}"?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="{% url 'withdraw_application' application.id %}" class="btn btn-danger">Yes, Withdraw</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            You haven't applied to any jobs yet. Browse jobs and start applying!
+            <a href="{% url 'job_seeker_job_list' %}" class="btn btn-primary btn-sm mt-3">Browse Jobs</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

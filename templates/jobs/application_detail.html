@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 application-details-section">
+    <!-- Application Detail Card -->
+    <div class="card shadow-lg border-0">
+        <!-- Header -->
+        <div class="card-header text-white py-2 text-center" style="background: linear-gradient(to right, #081b35, #1C4980); color: white;">
+            <h2>Application Details</h2>
+        </div>
+        <!-- Body -->
+        <div class="card-body px-4 py-5">
+            <!-- Applicant Information -->
+            <div class="row mb-4">
+                <div class="col-md-4 text-center">
+                    <!-- Profile Picture -->
+                    {% if application.job_seeker.profile_image %}
+                        <img src="{{ application.job_seeker.profile_image.url }}" 
+                             alt="{{ application.job_seeker.user.first_name }}'s Photo" 
+                             class="img-fluid rounded-circle border" 
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <i class="fas fa-user-circle text-primary" style="font-size: 130px;"></i>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h5 class="mb-3">Applicant Information</h5>
+                    <p class="mb-2"><strong>Name:</strong> {{ application.job_seeker.user.first_name }} {{ application.job_seeker.user.last_name }}</p>
+                    <p class="mb-2"><strong>Email:</strong> <a class="text-decoration-none" href="mailto:{{ application.job_seeker.user.email }}">{{ application.job_seeker.user.email }}</a></p>
+                    <p class="mb-2"><strong>Mobile:</strong> {{ application.job_seeker.phone_number }}</p>
+                </div>
+            </div>
+            <hr>
+            <!-- Job Details -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h5 class="mb-3">Job Details</h5>
+                    <p class="mb-2"><strong>Job Title:</strong> {{ application.job.title }}</p>
+                    <p class="mb-2"><strong>Applied On:</strong> {{ application.applied_date|date:"M d, Y" }}</p>
+                    <p class="mb-2"><strong>Current Status:</strong>
+                        <span class="badge rounded-pill {% if application.status == 'applied' %}bg-warning text-dark
+                                                     {% elif application.status == 'accepted' %}bg-success
+                                                     {% elif application.status == 'rejected' %}bg-danger
+                                                     {% elif application.status == 'under_review' %}bg-info
+                                                     {% else %}bg-secondary{% endif %}">{{ application.status }}</span>
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <!-- Resume Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h5 class="mb-3">📄 Resume</h5>
+                    {% if application.job_seeker.resume %}
+                        <p class="mb-3">The applicant has uploaded a resume. You can view or download it using the button below:</p>
+                        <a href="{{ application.job_seeker.resume.url }}" class="btn mt-2" id="view-resume-btn-application-details" target="_blank">
+                            <i class="fas fa-file-pdf me-2"></i> View Resume
+                        </a>
+                    {% else %}
+                        <p class="text-muted">No resume uploaded for this application.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <!-- Update Status Form -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="mb-3">Update Application Status</h5>
+                    <form method="POST" class="needs-validation">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="status" class="form-label">Application Status 
+                                <i class="fas fa-info-circle text-muted"></i>
+                            </label>
+                            <select name="status" id="status" class="form-select shadow-sm mt-2" style="font-size: 0.90rem;" >
+                                {% for key, value in application.STATUS_CHOICES %}
+                                    <option value="{{ key }}" {% if application.status == key %}selected{% endif %}>
+                                        {{ value }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success px-3 mt-2">
+                                <i class="fas fa-check-circle me-2"></i> Update Status
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

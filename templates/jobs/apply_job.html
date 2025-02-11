@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Apply Job - NextHire{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <!-- Job Overview Section -->
+        <div class="card shadow-lg mb-4 p-5 apply-job-overview-section">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="font-weight-bold mb-2">{{ job_posting.title }}</h2>
+                    <h5 class="text-muted mb-3">{{ job_posting.employer.company_name }}</h5>
+                    <p><i class="fas fa-map-marker-alt text-primary"></i> {{ job_posting.location }}</p>
+                    <p><i class="fas fa-calendar-alt text-primary"></i> Posted on: {{ job_posting.posted_date }}</p>
+                    <button class="btn btn-outline-info mt-3 apply-job-visit-btn">Visit Company Profile</button>
+                </div>
+                <div class="col-md-4 text-center">
+                    {% if job_posting.employer.company_logo %}
+                        <img src="{{ job_posting.employer.company_logo.url }}" class="img-fluid rounded-circle apply-job-company-logo" alt="Company Logo" style="max-width: 150px;">
+                    {% else %}
+                        <i class="fas fa-building fa-5x text-muted"></i>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Job Description & Requirements Section -->
+        <div class="card shadow-lg mb-4 p-5 apply-job-description-section">
+            <!-- Job Overview -->
+            <div class="mb-4">
+                <h4 class="font-weight-bold mb-3">Job Overview</h4>
+                <div class="d-flex flex-wrap align-items-center mb-1">
+                    <div style="padding-right: 15px;">
+                        <i class="fas fa-briefcase text-info" style="margin-right: 4px;"></i>
+                        <strong>Job Type:</strong> {{ job_posting.job_type }}
+                    </div>
+                    <div style="padding-right: 15px;">
+                        <i class="fas fa-dollar-sign text-success" style="margin-right: 4px;"></i>
+                        <strong>Salary:</strong> {{ job_posting.salary }} ({{ job_posting.salary_type }})
+                    </div>
+                    <div style="padding-right: 15px;">
+                        <i class="fas fa-user-tie text-warning" style="margin-right: 4px;"></i>
+                        <strong>Experience Level:</strong> {{ job_posting.experience_level }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Description -->
+            <div class="mb-1">
+                <h4 class="font-weight-bold">Job Description</h4>
+                <p class="text-muted">{{ job_posting.description }}</p>
+            </div>
+
+            <!-- Requirements and Skills Needed -->
+            <div class="row mt-3">
+                <!-- Requirements Column -->
+                <div class="col-md-6">
+                    <h4><i class="fas fa-tasks text-primary mb-1" style="margin-right: 4px;"></i> Requirements</h4>
+                    <ul class="list-unstyled pl-3">
+                        {% for requirement in job_posting.requirements_list %}
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success" style="margin-right: 4px;"></i> {{ requirement|default_if_none:'' }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Skills Column -->
+                <div class="col-md-6">
+                    <h4><i class="fas fa-tools text-info mb-1" style="margin-right: 4px;"></i> Skills Needed</h4>
+                    <ul class="list-unstyled pl-3">
+                        {% for skill in job_posting.skills_list %}
+                            <li class="mb-2">
+                                <i class="fa-solid fa-gear text-secondary" style="margin-right: 4px;"></i> {{ skill|default_if_none:'' }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Enhanced Company Information Section -->
+        <div class="card shadow-lg mb-4 p-5 apply-job-company-info-section">
+            <div class="d-flex align-items-center">
+                <!-- Company Logo -->
+                {% if job_posting.employer.company_logo %}
+                    <img src="{{ job_posting.employer.company_logo.url }}" alt="Company Logo" class="img-fluid img-thumbnail" style="width: 70px; height: 65px; margin-right: 10px;">
+                {% else %}
+                    <i class="fas fa-building fa-3x text-muted" style="margin-right: 10px;"></i>
+                {% endif %}
+                <h4 class="font-weight-bold mb-0">Company Details {{ job_posting.company.name }}</h4>
+            </div>
+            <hr class="my-4">
+            <div class="mt-1">
+                <p><strong>Website:</strong> <a href="{{ job_posting.employer.website }}" target="_blank" class="text-primary" style="text-decoration: none;">{{ job_posting.employer.website }}</a></p>
+                <p><strong>Location:</strong> {{ job_posting.employer.location }}</p>
+                <p><strong>About:</strong> {{ job_posting.employer.about }}</p>
+            </div>
+        </div>
+
+        <!-- Enhanced User Information Section -->
+        <div class="card shadow-lg mb-4 p-5 apply-app-user-info-section">
+            <div class="d-flex align-items-center mb-2">
+                <h4 class="font-weight-bold mb-0">User Details</h4>
+            </div>
+            
+            {% if job_seeker_profile %}
+                <div class="mt-2">
+                    <p><strong>Full Name:</strong> {{ job_seeker_profile.user.first_name }} {{ job_seeker_profile.user.last_name }}</p>
+                    <p><strong>Email:</strong> {{ job_seeker_profile.user.email }}</p>
+                    <p><strong>Mobile No. :</strong> {{ job_seeker_profile.phone_number|default_if_none:'Not Provided' }}</p>
+                    <p><strong>Address:</strong> {{ job_seeker_profile.address|default_if_none:'Not Provided' }}</p>
+                    <p><strong>Education:</strong> {{ job_seeker_profile.education|default_if_none:'Not Provided' }}</p>
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-4">
+                    <i class="fas fa-exclamation-circle" style="margin-right: 6px"></i>
+                    Please complete your profile to apply for this job.
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Application Form Section -->
+        <div class="card shadow-lg mb-5 p-5 apply-job-application-form">
+            <div class="d-flex align-items-center mb-3">
+                <h4 class="font-weight-bold mb-0">Apply for This Job</h4>
+            </div>
+            <p class="text-muted mb-4">Optimize your resume with relevant skills and experience to maximize your chances.</p>
+        
+            {% if incomplete_profile %}
+                <!-- Profile Completion Alert -->
+                <div class="alert alert-warning d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i> Please complete your profile to apply for this job.
+                </div>
+                
+                <!-- Profile Completion Form -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ job_seeker_profile.phone_number }}" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ job_seeker_profile.address }}" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="about" class="form-label">About</label>
+                        <textarea class="form-control" id="about" name="about" required rows="3">{{ job_seeker_profile.about }}</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="skills" class="form-label">Skills</label>
+                        <textarea class="form-control" id="skills" name="skills" required rows="3">{{ job_seeker_profile.skills }}</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="education" class="form-label">Education</label>
+                        <textarea class="form-control" id="education" name="education" required>{{ job_seeker_profile.education }}</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="experience" class="form-label">Experience</label>
+                        <textarea class="form-control" id="experience" name="experience" required rows="2">{{ job_seeker_profile.experience }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Profile and Continue</button>
+                </form>
+        
+            {% else %}
+                <!-- Job Application Form -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-4 apply-job-resume-section">
+                        {% if existing_resume %}
+                            <!-- Existing Resume Information -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <p class="mb-0">
+                                    <strong>Current Resume:</strong> <span class="text-muted">{{job_seeker_profile.resume.name}}</span>
+                                </p>
+                                <a href="{{ existing_resume }}" target="_blank" class="btn btn-outline-info btn-sm">View Resume</a>
+                            </div>
+                            <p class="text-muted mb-2">To replace your current resume, please upload a new one below.</p>
+                            
+                            <!-- Resume Upload Field (Optional) -->
+                            <div class="form-group">
+                                <label for="resume" class="form-label font-weight-bold">Change Resume (PDF, DOCX)</label>
+                                <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                            </div>
+                        {% else %}
+                            <!-- No Existing Resume -->
+                            <p class="text-muted">Please upload your resume to apply for this job.</p>
+                            
+                            <!-- Resume Upload Field (Required) -->
+                            <div class="form-group">
+                                <label for="resume" class="form-label font-weight-bold">Upload Resume (PDF, DOCX)</label>
+                                <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit Application Button -->
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg apply-job-submit-button mt-3">Submit Application</button>
+                    </div>
+                </form>
+
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}
+
+

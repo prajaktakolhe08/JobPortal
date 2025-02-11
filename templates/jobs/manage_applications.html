@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 manage-applications-section">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2>Manage Applications</h2>
+        <a href="{% url 'employer_home' %}" class="btn">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    {% if applications %}
+        <div class="row">
+            {% for application in applications %}
+                <div class="col-lg-6 col-md-12 mb-4 ">
+                    <div class="card shadow-sm border h-100">
+                        <div class="row g-0">
+                            <div class="col-md-3 text-center d-flex justify-content-center align-items-center p-3">
+                                {% if application.job_seeker.profile_image %}
+                                    <img src="{{ application.job_seeker.profile_image.url }}" 
+                                        alt="{{ application.job_seeker.user.first_name }}'s photo" 
+                                        class="img-fluid rounded-circle" 
+                                        style="width: 100px; height: 100px; object-fit: cover;">
+                                {% else %}
+                                    <i class="fas fa-user-tie fa-3x text-primary" style="font-size:4.5rem;"></i>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="mb-3">{{ application.job.title }}</h5>
+                                    <p class="mb-2">
+                                        <strong>Applicant:</strong> 
+                                        {{ application.job_seeker.user.first_name }} {{ application.job_seeker.user.last_name }}
+                                    </p>
+                                    <p class="mb-2"><strong>Email:</strong> {{ application.job_seeker.user.email }}</p>
+                                    <p class="mb-2"><strong>Applied On:</strong> {{ application.applied_date|date:"M d, Y" }}</p>
+                                    <p class="mb-1">
+                                        <span class="badge {% if application.status == 'Applied' %}bg-warning text-dark
+                                                          {% elif application.status == 'accepted' %}bg-success
+                                                          {% elif application.status == 'rejected' %}bg-danger
+                                                          {% elif application.status == 'under_review' %}bg-info
+                                                          {% else %}bg-secondary{% endif %}" style="padding:5px 12px;">
+                                            {{ application.status }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end bg-white">
+                            <a href="{% url 'application_detail' application.id %}" class="btn btn-primary" style="color: white; background-color:#1C4980">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- No Applications Found -->
+        <div class="alert alert-info text-center py-5">
+            <i class="fas fa-info-circle fa-2x mb-3"></i>
+            <h4>No applications found</h4>
+            <p class="text-muted">Looks like there are no applications yet. Please check back later.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Login-NextHire{% endblock %}
+
+{% block content %}
+<section class="login-conatiner-section">
+<div class="container mt-5 login-box" style="max-width: 450px; padding-left: 25px; padding-right: 25px">
+    <h2 class="text-center heading1">Welcome Back To Your Career Hub!</h2>
+    <p class="text-center login-para-style">Log in to continue your journey towards your dream job.</p>
+
+    <form method="post" class="login-form mt-4">
+        {% csrf_token %}
+        <div class="mb-4">
+            {{ form.username.label_tag }}
+            {{ form.username|add_class:"form-control" |attr:"placeholder:Enter your username" }}
+            {% if form.username.errors %}
+                <div class="text-danger small">{{ form.username.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-4">
+            {{ form.password.label_tag }}
+            {{ form.password|add_class:"form-control" |attr:"placeholder:Enter your password" }}
+            {% if form.password.errors %}
+                <div class="text-danger small">{{ form.password.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3 form-check">
+            {{ form.remember_me|add_class:"form-check-input" }}
+            {{ form.remember_me.label_tag }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100" id="submit-button-login">Login</button>
+
+        <p class="text-center mt-3 login-button-link">Don't have an account? <a href="{% url 'register' %}" class="btn">Register</a></p>
+        <!-- <p class="text-center mt-2"><a href="#" class="text-decoration-none">Forgot Password?</a></p> -->
+    </form>
+</div>
+</section>
+{% endblock %}
+

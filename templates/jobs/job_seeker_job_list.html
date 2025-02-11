@@ -1,0 +1,418 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Job Postings - NextHire{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- <h2 class="text-center job-listing-heading">Job Postings</h2> -->
+    
+    <div class="row">
+        <!-- Job List Column -->
+        <div class="col-md-5 job-cards-column job-listing-container" style="max-height: 100vh; overflow-y: auto;">
+            {% if job_postings %}
+            {% for job in job_postings %}
+            <div class="card job-card mb-3 shadow-sm border-left-unselected" 
+                 onclick='showJobDetails("{{ job.id|escapejs }}", this)' 
+                 data-title="{{ job.title|escapejs }}"
+                 data-company="{{ job.employer.company_name|escapejs }}"
+                 data-location="{{ job.location|default:'Unknown'|escapejs }}"
+                 data-location-company="{{ job.employer.location|default:'Unknown'|escapejs }}"
+                 data-job-type="{{ job.job_type }}"
+                 data-experience-level="{{ job.experience_level }}"
+                 data-salary="{{ job.salary|escapejs }} ({{ job.salary_type }})"
+                 data-description="{{ job.description }}"
+                 data-requirements="{{ job.requirements }}"
+                 data-skills="{{ job.skills }}"
+                 data-category="{{ job.category }}"
+                 data-benefits="{{ job.benefits }}" 
+                 data-active="{{ job.is_active|yesno:'true,false' }}"
+                 data-company-logo="{% if job.company_logo %}{{ job.company_logo.url }}{% else %}{% static 'images/default-logo.png' %}{% endif %}"  
+                 data-about="{{ job.employer.about }}"
+                 data-instructions="{{ job.application_instructions|escapejs }}" 
+                 data-deadline="{{ job.application_deadline|date:'F j, Y' }}" 
+                 data-posted-date="{{ job.posted_date|date:'F j, Y' }}"
+                 data-updated-at = "{{ job.updated_at|date:'F j, Y' }}"
+                 data-active="{{ job.is_active }}">
+
+                <div class="card-body d-flex align-items-start">
+                    <div class="job-info  flex-grow-1">
+                        <div class="logo-title-container d-flex align-items-start">
+                            {%if job.company_logo%}
+                                <img src="{{ job.company_logo.url }}" class="job-logo img-thumbnail mr-3" alt="Company Logo">
+                            {% endif %}  
+                            <h5 class="text-title mt-2 mb-0" style="display: inline;">
+                                {{ job.title }}
+                            </h5>
+                        </div>
+                        <p class="card-text mb-3 text-company-name">
+                            <strong>{{ job.employer.company_name }}</strong>, {{ job.location }}
+                        </p>
+                        <p class="card-text job-type-styling">{{ job.job_type }}</p>
+                        <p class="card-text mb-1">
+                            <ul class="mb-2 mt-3 text-requirements" style="list-style-type: circle; margin-left:56px;">
+                                {% for requirement in job.requirements_list|slice:":2" %}
+                                    <li>{{ requirement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                        <p class="card-text text-posted">
+                            <small>Posted on: {{ job.posted_date|date:"F j, Y" }} | Status: 
+                                <span class="{{ job.is_active|yesno:'text-success,text-danger' }}">
+                                    <strong>{{ job.is_active|yesno:'Active,Inactive' }}</strong>
+                                </span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <p class="text-center text-muted">No job postings found.</p>
+            {% endif %}
+        </div>
+
+        <!-- Job Details Column (Sticky Position) -->
+        <div class="col-md-7">
+            <div id="job-details" class="job-details p-4 shadow-sm bg-white" style="position: sticky; top: 0;">
+                <!-- Company Logo and Title -->
+                <div class="d-flex align-items-center mb-3">
+                        <img id="job-logo" class="job-logo-company img-thumbnail mr-3" src="{{ job_postings.0.company_logo.url }}">
+                    <div>
+                        <h3 id="job-title" class="mb-1 job-details-column-title">
+                            <a id="job-title-link" href="#" class="job-title-link">{{ job_postings.0.title }}</a>
+                        </h3>
+                        <p id="job-company" class="text-muted mb-0">{{ job_postings.0.employer.company_name }}</p>
+                    </div>
+                </div>
+
+                <!-- Job Status and Statistics -->
+                <p class="job-details-overview-section"><i class="fa-regular fa-clock"></i> <strong>Status:</strong> <span id="job-active" data-active="true">{{ job_postings.0.is_active|yesno:'Active,Inactive' }}</span></p>
+                <!-- Location, Update Date, and Website -->
+                <p class="job-details-overview-section"><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <span id="job-location2">{{ job_postings.0.location }}</span></p>
+                <p class="job-details-overview-section"><i class="fa-regular fa-calendar"></i> <strong>Updated on:</strong> <span id="job-updated-at">{{ job_postings.0.updated_at }}</span></p>
+
+                <!-- Salary Information -->
+                <p class="job-details-overview-section"><i class="fa-solid fa-wallet"></i> <strong>Salary:</strong> <span id="job-salary"> INR {{ job_postings.0.salary }} ({{job_postings.0.salary_type}})</span></p>
+                <p class="job-details-overview-section">
+                    <a id="job-website" href="" target="_blank" class="text-decoration-none">
+                        <i class="fas fa-external-link-alt"></i> Visit Official Website
+                    </a>
+                </p>
+                <!-- Apply and Save Buttons for Selected Job -->
+                <div class="d-flex mt-4 mb-4 job-details-column-btn"> 
+                    <a id="apply-job-button" href="#" class="btn btn-primary job-details-apply-btn" style="margin-right: 15px;">
+                        <i class="fas fa-paper-plane"></i> Apply Now
+                    </a>
+                    <a id="save-job-button" href="#" class="btn btn-outline-primary job-details-save-btn" style="margin-right: 15px;">
+                        <i class="fas fa-bookmark"></i> Save Job
+                    </a>
+                    <a id="fav-job-button" href="#" class="btn btn-outline-danger job-details-fav-btn" style="margin-right: 15px;">
+                        <i class="fa-solid fa-heart"></i> Favourite
+                    </a>
+                </div>
+                <!-- Job Details Section -->
+                <div style="max-height: 45vh; overflow-y: auto;">
+                    <div class="mb-4" >
+                        <h5 class="mb-3">Skills Required</h5>
+                        <p id="job-skills" class="job-details-column-content">{{ job_postings.0.skills }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="mb-3">Job Details</h5>
+                        <p class="job-details-column-content"><strong>Job Description:</strong> <span id="job-description">{{ job_postings.0.description }}</span></p>
+                        <p class="job-details-column-content"><strong>Job Type:</strong> <span id="job-type">{{ job_postings.0.job_type }}</span></p>
+                        <p class="job-details-column-content"><strong>Location:</strong> <span id="job-location">{{ job_postings.0.location }}</span></p>
+                        <p class="job-details-column-content"><strong>Requirements:</strong> <span id="job-requirements">{{ job_postings.0.requirements }}</span></p>
+                        <p class="job-details-column-content"><strong>Experience Level:</strong> <span id="job-experience">{{ job_postings.0.experience_level}}</span></p>
+                        <p class="job-details-column-content"><strong>Category:</strong> <span id="job-category">{{ job_postings.0.category }}</span></p>
+                        <p class="job-details-column-content"><strong>Benefits:</strong> <span id="job-benefits">{{ job_postings.0.benefits }}</span></p>
+                        <p class="job-details-column-content"><strong>About Us:</strong> <span id="job-about">{{ job_postings.0.employer.about }}</span></p>
+                    </div>
+
+                    <!-- Application Details -->
+                    <div class="mb-4">
+                        <h5 class="mb-3">Application Details</h5>
+                        <p class="job-details-column-content"><strong>Instructions:</strong> <span id="job-instructions">{{ job_postings.0.application_instructions }}</span></p>
+                        <p class="job-details-column-content"><strong>Deadline:</strong> <span id="job-deadline">{{ job_postings.0.application_deadline }}</span></p>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div>
+                        <h5 class="mb-4">Additional Information</h5>
+
+                        <!-- Job Location -->
+                        <div class="card p-3 mb-3 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="additional-info-cards">
+                                    <p class="mb-0"><strong>Job Location</strong></p>
+                                    <p class="location-name" id="job-location3">{{ job_postings.0.location }}</p>
+                                </div>
+                                <div class="icon-container">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Level -->
+                        <div class="card p-3 mb-3 shadow-sm" id="experience-level" data-experience="Mid-Senior Level" data-experience-info="Candidates with 3-5 years of experience.">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="additional-info-cards">
+                                    <p class="mb-0"><strong>Experience Level</strong></p>
+                                    <p class="experience-level" id="job-experience2">{{ job_postings.0.experience_level }}</p>
+                                </div>
+                                <div class="icon-container">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job Type -->
+                        <div class="card p-3 mb-3 shadow-sm" id="job-type" data-type="Full-Time" data-type-info="This is a full-time position with benefits.">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="additional-info-cards">
+                                    <p class="mb-0"><strong>Job Type</strong></p>
+                                    <p class="job-type" id="job-type2">{{ job_postings.0.job_type }}</p>
+                                </div>
+                                <div class="icon-container">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function showJobDetails(jobId, jobCardElement) {
+        // Remove selected border from all job cards
+        document.querySelectorAll('.job-card').forEach(card => card.classList.remove('border-left-selected'));
+    
+        // Add selected border to the clicked job card
+        jobCardElement.classList.add('border-left-selected');
+    
+        // Set job details based on data attributes
+        document.getElementById('job-company').textContent = jobCardElement.getAttribute('data-company');
+        document.getElementById('job-location').textContent = jobCardElement.getAttribute('data-location-company');
+        document.getElementById('job-location2').textContent = jobCardElement.getAttribute('data-location');
+        document.getElementById('job-location3').textContent = jobCardElement.getAttribute('data-location');
+        document.getElementById('job-type').textContent = jobCardElement.getAttribute('data-job-type');
+        document.getElementById('job-type2').textContent = jobCardElement.getAttribute('data-job-type');
+        document.getElementById('job-experience').textContent = jobCardElement.getAttribute('data-experience-level');
+        document.getElementById('job-experience2').textContent = jobCardElement.getAttribute('data-experience-level');
+        document.getElementById('job-salary').textContent = jobCardElement.getAttribute('data-salary');
+        document.getElementById('job-description').textContent = jobCardElement.getAttribute('data-description');
+        document.getElementById('job-requirements').textContent = jobCardElement.getAttribute('data-requirements');
+        document.getElementById('job-skills').textContent = jobCardElement.getAttribute('data-skills');
+        document.getElementById('job-category').textContent = jobCardElement.getAttribute('data-category');
+        document.getElementById('job-benefits').textContent = jobCardElement.getAttribute('data-benefits');
+        document.getElementById('job-about').textContent = jobCardElement.getAttribute('data-about');
+        document.getElementById('job-instructions').textContent = jobCardElement.getAttribute('data-instructions');
+        document.getElementById('job-deadline').textContent = jobCardElement.getAttribute('data-deadline');
+        document.getElementById('job-updated-at').textContent = jobCardElement.getAttribute('data-updated-at');
+        document.getElementById('job-logo').src = jobCardElement.getAttribute('data-company-logo');
+
+        // Set job title link dynamically
+        const jobTitleLink = document.getElementById('job-title-link'); // Access the <a> tag inside #job-title
+        jobTitleLink.textContent = jobCardElement.getAttribute('data-title'); // Set the text dynamically
+        jobTitleLink.href = `/jobs/job-detail/${jobId}`; // Set the link dynamically based on job ID
+
+        var isActive = jobCardElement.getAttribute('data-active');
+        if (isActive === "true") {
+            document.getElementById('job-active').textContent = "Active";
+            document.getElementById('job-active').style.color = "green"; 
+        } else {
+            document.getElementById('job-active').textContent = "Inactive";
+            document.getElementById('job-active').style.color = "red";   
+        }
+        console.log("Location:", jobCardElement.getAttribute('data-location'));
+        //set apply job button link
+        document.getElementById('apply-job-button').href = `/jobs/apply_job/${jobId}`;
+
+        //set save job button link
+        document.getElementById('save-job-button').href=`/jobs/save_job/${jobId}`;
+        
+    }
+</script>
+<style>
+    .border-left-unselected {
+        border-left: 4px solid #f0f0f0;
+        transition: all 0.3s ease;
+    }
+    .border-left-selected {
+        border-left: 4px solid #024996;
+    }
+
+    .card-body {
+        display: flex; /* Use flexbox for alignment */
+        align-items: center; /* Center align items vertically */
+    }
+
+    .job-card{
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    /* Hover Effect */
+    .job-card:hover {
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        transform: scale(1.02);
+    }
+
+    /* Ensure nothing is below the logo */
+
+    .job-logo {
+        width: 52px;
+        height: 52px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 10px;
+    }
+    p.card-text{
+        margin-left: 70px;
+    }
+    .job-type-styling{
+        display: inline;
+        color: rgb(86, 84, 84);
+        background-color: rgb(239, 236, 236);
+        font-weight: 700;
+        padding: 5px 7px;
+        font-size: 0.92rem;
+        border-radius: 4px;
+        
+    }
+    .logo-title-container {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .heading-text {
+        display: inline;
+        text-indent: -40px; /* Adjust this value as needed to match the width of the logo */
+        margin-left: 40px; /* Matches the indent so the first line starts after the logo */
+        line-height: 1.2; /* Adjust line height as needed */
+    }
+
+    .text-requirements{
+        font-size: 0.97rem;
+        color: rgb(77, 77, 77);
+    }
+
+    .text-title{
+        font-size: 1.3rem;
+    }
+
+    .text-posted{
+        font-size: 0.95rem;
+        color: #6c6c6c;
+    }
+
+    .text-company-name{
+        font-size: 0.97rem;
+        color: #666565;
+    }
+    .icon-container {
+        background-color: #e2ecf8; 
+        border-radius: 50%;
+        padding: 30px; 
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon-container i{
+        color: #024996;
+        font-size: 2.6rem;
+    }
+
+    .job-logo-company{
+        height: 80px;
+        width: 80px;
+        margin-right: 10px;
+        border-radius: 10px;
+    }
+
+    .job-listing-heading{
+        color: #01346b;
+        margin-bottom: 50px;
+    }
+
+    .job-listing-container::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .job-listing-container::-webkit-scrollbar-thumb {
+        background-color: #b1b0b0; 
+        border-radius: 10px;
+    }
+    
+    .job-listing-container::-webkit-scrollbar-thumb:hover {
+        background-color: #818080;
+    }
+
+    .job-details-column-title{
+        font-weight: 600;
+        font-size: 2rem;
+    }
+
+    .job-details-overview-section{
+        font-size: 0.90rem;
+        color: rgb(49, 49, 49);
+    }
+
+    .job-details-overview-section strong{
+        margin-left: 5px;
+    }
+
+    .job-details-apply-btn,
+    .job-details-save-btn{
+        background-color: #022a5b;
+        color: white;
+        font-size: 0.95rem;
+    }
+    .job-details-apply-btn:hover{
+        background-color: #022448;
+        color: white;
+    }
+    .job-details-save-btn:hover{
+        background-color: #022448;
+        color: white;
+    }
+
+    .job-details-column-btn i{
+        margin-right: 3px;
+    }
+
+    .job-details-fav-btn{
+        background-color: rgb(177, 2, 2);
+        color: white;
+    }
+
+    .job-details-fav-btn:hover{
+        background-color: rgb(158, 1, 1);
+        color: white;
+    }
+
+    .job-details-column-content{
+        color: rgb(74, 74, 74);
+        font-size: 0.92rem;
+    }
+
+    .additional-info-cards{
+        font-size: 0.94rem;
+    }
+
+    .additional-info-cards strong{
+        font-size: 1rem;
+    }
+
+    .job-details-column-title a{
+        text-decoration: none;
+        color: #1c4980;
+    }
+</style>
+{% endblock %}
