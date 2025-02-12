@@ -48,16 +48,44 @@ The Django Job Portal is a modern platform designed to connect job seekers with 
 ## 📸 Screenshots  
 
 ### 🏠 Homepage  
-<img alt="Homepage" src="https://github.com/user-attachments/assets/homepage.png" width="400">
+<img alt="Homepage" src="https://github.com/user-attachments/assets/57cce65c-6718-4f32-a34f-28b80c223722" width="332">
+<img alt="Homepage" src="https://github.com/user-attachments/assets/d2e68900-dfa5-417f-8438-98620c6fe8aa" width="332">
+<img alt="Homepage" src="https://github.com/user-attachments/assets/e03c5568-0cc3-41d1-a912-07cf6184e6a7" width="332">
 
 ### 📄 Job Listings  
-<img alt="JobListings" src="https://github.com/user-attachments/assets/job_listings.png" width="400">
+<img alt="JobListings" src="https://github.com/user-attachments/assets/416d4d65-722e-4169-a184-1da4ae596b6d" width="335">
 
 ### 📑 Job Detail Page  
-<img alt="JobDetail" src="https://github.com/user-attachments/assets/job_detail.png" width="400">
+<img alt="JobDetail" src="https://github.com/user-attachments/assets/a6f6bb45-e565-448e-98e0-c0f9de8809b4" width="335">
+<img alt="JobDetail" src="https://github.com/user-attachments/assets/79d66677-481d-400d-81d1-57ce299c10bb" width="335">
 
-### 🛠️ Employer Dashboard  
-<img alt="EmployerDashboard" src="https://github.com/user-attachments/assets/employer_dashboard.png" width="400">
+## 📄 Job Application Page
+<img alt="Application page" src="https://github.com/user-attachments/assets/6019a3df-62fe-4bab-a8b1-c34394a714cd" width="332">
+<img alt="Application page" src="https://github.com/user-attachments/assets/7ddbd285-6cb8-4075-8a5b-464cd581b032" width="332">
+<img alt="Application page" src="https://github.com/user-attachments/assets/274b230f-d42e-40a8-ada5-c329722245c2" width="332">
+
+## 👤 User Profile Management
+<img alt="Profile" src="https://github.com/user-attachments/assets/9d1b1a0d-bdc6-4240-9b64-5578279c6f1d" width="335">
+<img alt="Profile" src="https://github.com/user-attachments/assets/81bfacd5-fdd5-45d9-a1d3-1136689af0ae" width="335">
+
+## 📌 Applied and Saved job page
+<img alt="AppliedJobs" src="https://github.com/user-attachments/assets/2b52f8da-2f57-4f22-bb94-b56d0ce0e18d" width="335">
+<img alt="SavedJobs" src="https://github.com/user-attachments/assets/4508196e-76cf-48fd-a4ed-0326bb7ae594" width="335">
+
+### 🏢 Employer Dashboard  
+<img alt="EmployerDashboard" src="https://github.com/user-attachments/assets/3ec95fcc-e5ac-439c-b594-1287fcf8ec63" width="335">
+
+## 📋 Job Postings and Details
+<img alt="PostedJobs" src="https://github.com/user-attachments/assets/761664fa-4f3f-4599-928c-cebead5092b9" width="335">
+<img  alt="JobDetails" src="https://github.com/user-attachments/assets/c4859b91-ab9a-4caf-a659-c99b9c6b2a4b" width="335">
+
+## 📝 Job Applicant and Details
+<img alt="JobApplicant" src="https://github.com/user-attachments/assets/c524629e-5288-41dc-8da7-d5cb07e0ed08" width="335">
+<img alt="JobDetails" src="https://github.com/user-attachments/assets/b49df108-1870-40cd-a1ca-3d545f84a03c" width="335">
+
+## 🏷️ Employer Profile Management
+<img alt="Profile-Emp" src="https://github.com/user-attachments/assets/bbc7938a-512a-4d5e-b346-9a79cb5f5fb4" width="335">
+<img  alt="Manage-profile" src="https://github.com/user-attachments/assets/f95fe870-fb42-4e6d-b878-dd8ff37489e1" width="335">
 
 &nbsp;
 ## 📞 Contact  
