@@ -89,7 +89,7 @@ The Django Job Portal is a modern platform designed to connect job seekers with 
 &nbsp;
 ## 📞 Contact  
 
-If you have any questions or would like to contribute, feel free to email me or connect with me on [LinkedIn](www.linkedin.com/in/prajakta-kolhe08).
+If you have any questions or would like to contribute, feel free to email me or connect with me on [LinkedIn](https://linkedin.com/in/prajakta-kolhe08).
 
 ⭐ **If you like this project, don't forget to give it a star!** ⭐
 
