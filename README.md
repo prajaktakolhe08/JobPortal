@@ -33,17 +33,18 @@ The Django Job Portal is a modern platform designed to connect job seekers with 
 &nbsp;
 ## 🎥 Demo
 
-- Employer Panel Demo  
-<table> <tr> <td width="65%"> <video src="https://github.com/user-attachments/assets/313709bb-e45d-42d4-9077-ead0ee50c976" controls width="100%"></video> </td> <td width="35%"> The demo showcases: 📌 Posting job listings, 📌 Managing applicants, 📌 Editing and deleting job posts, 📌 Viewing applicant details  </td> </tr> </table>
-
 - Job Seeker Panel Demo
 <table> <tr> <td width="65%"> <video src="https://github.com/user-attachments/assets/960052d3-b350-4387-8943-8b2b56729a4f" controls width="100%"></video> </td> <td width="35%"> This walkthrough highlights: 📌 Browsing job listings, 📌 Searching by category and keywords, 📌 Applying for jobs with resume upload, 📌 Managing applications  </td> </tr> </table>
+
+- Employer Panel Demo  
+<table> <tr> <td width="65%"> <video src="https://github.com/user-attachments/assets/313709bb-e45d-42d4-9077-ead0ee50c976" controls width="100%"></video> </td> <td width="35%"> The demo showcases: 📌 Posting job listings, 📌 Managing applicants, 📌 Editing and deleting job posts, 📌 Viewing applicant details  </td> </tr> </table>
 
 - Admin Panel Demo
 <table> <tr> <td width="65%"> <video src="https://github.com/user-attachments/assets/0221e785-140d-4e7d-9738-f68b058bba1e" controls width="100%"></video> </td> <td width="35%"> The admin demo showcases: 🛠 Managing job postings, 👥 Overseeing user accounts, 📊 Viewing analytics on job applications, 📝 Approving or rejecting job listings, ⚙️ Managing employer profiles </td> </tr> </table>
 &nbsp;
 
 *Note: The watermark in the video is from Clideo.com, as I used their free tool to compress the video.*
+
 ## 📸 Screenshots  
 
 ### 🏠 Homepage  
