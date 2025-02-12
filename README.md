@@ -66,7 +66,7 @@ The Django Job Portal is a modern platform designed to connect job seekers with 
 
 ### 👤 User Profile Management
 <img alt="Profile" src="https://github.com/user-attachments/assets/9d1b1a0d-bdc6-4240-9b64-5578279c6f1d" width="400">
-<img alt="Profile" src="https://github.com/user-attachments/assets/81bfacd5-fdd5-45d9-a1d3-1136689af0ae" width="3400">
+<img alt="Profile" src="https://github.com/user-attachments/assets/81bfacd5-fdd5-45d9-a1d3-1136689af0ae" width="400">
 
 ### 📌 Applied and Saved job page
 <img alt="AppliedJobs" src="https://github.com/user-attachments/assets/2b52f8da-2f57-4f22-bb94-b56d0ce0e18d" width="400">
