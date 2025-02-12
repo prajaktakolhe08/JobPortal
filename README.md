@@ -5,21 +5,20 @@ The Django Job Portal is a modern platform designed to connect job seekers with 
 ## ✨ Features  
 
 📌 **User Experience:**  
-- 👤 **User Authentication** (Sign Up, Login, Profile Management)  
-- 🏢 **Job Listings by Category** (IT, Healthcare, Finance, Marketing, etc.)  
-- 📄 **Detailed Job Descriptions**  
-- 💼 **Apply for Jobs with Resume Upload**
-- ❤️ **Save jobs and view applied jobs**
+- 👤 User Authentication (Sign Up, Login, Profile Management)  
+- 🏢 Job Listings by Category (IT, Healthcare, Finance, Marketing, etc.)  
+- 📄 Detailed Job Descriptions  
+- 💼 Apply for Jobs with Resume Upload
+- ❤️ Save jobs and view applied jobs
 
 📌 **Recruiter & Employer Panel:**  
-- 📋 **Post New Job Listings**  
-- 📝 **Manage Job Applications**  
-- 🏢 **Company Profile Management**  
+- 📋 Post New Job Listings  
+- 📝 Manage Job Applications  
+- 🏢 Company Profile Management  
 
 📌 **Technology & Design:**  
-- 🎨 **Responsive Design with Bootstrap**  
-- ⚡ **Optimized & Fast Performance**  
-
+- 🎨 Responsive Design with Bootstrap 
+- ⚡ Optimized & Fast Performance  
 &nbsp;
 ## 🛠️ Built With  
 <br>
